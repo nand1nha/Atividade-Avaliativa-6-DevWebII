@@ -1,0 +1,64 @@
+<main class="detail-page">
+  <a class="back-link" routerLink="/">Voltar para produtos</a>
+
+  <p *ngIf="carregando" class="state-message">Carregando produto...</p>
+  <p *ngIf="erro" class="error-message">{{ erro }}</p>
+
+  <section class="product-detail" *ngIf="!carregando && !erro && produto">
+    <div class="image-area">
+      <img [src]="produto.image" [alt]="produto.title">
+    </div>
+
+    <div class="detail-info">
+      <p class="category">{{ produto.category }}</p>
+      <h1>{{ produto.title }}</h1>
+      <p class="description">{{ produto.description }}</p>
+
+      <div class="buy-line">
+        <strong>{{ produto.price | currency:'BRL':'symbol':'1.2-2' }}</strong>
+        <span>{{ produto.rating.rate }} / 5 com {{ produto.rating.count }} avaliacoes</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="api-data" *ngIf="!carregando && !erro && produto">
+    <h2>Informacoes completas da API</h2>
+
+    <dl>
+      <div>
+        <dt>ID</dt>
+        <dd>{{ produto.id }}</dd>
+      </div>
+      <div>
+        <dt>Titulo</dt>
+        <dd>{{ produto.title }}</dd>
+      </div>
+      <div>
+        <dt>Preco</dt>
+        <dd>{{ produto.price | currency:'BRL':'symbol':'1.2-2' }}</dd>
+      </div>
+      <div>
+        <dt>Categoria</dt>
+        <dd>{{ produto.category }}</dd>
+      </div>
+      <div>
+        <dt>Descricao</dt>
+        <dd>{{ produto.description }}</dd>
+      </div>
+      <div>
+        <dt>Imagem</dt>
+        <dd>
+          <a [href]="produto.image" target="_blank" rel="noreferrer">Abrir imagem original</a>
+        </dd>
+      </div>
+      <div>
+        <dt>Nota</dt>
+        <dd>{{ produto.rating.rate }}</dd>
+      </div>
+      <div>
+        <dt>Total de avaliacoes</dt>
+        <dd>{{ produto.rating.count }}</dd>
+      </div>
+    </dl>
+  </section>
+</main>

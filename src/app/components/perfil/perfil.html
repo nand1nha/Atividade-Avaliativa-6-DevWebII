@@ -1,0 +1,91 @@
+<main class="profile-page">
+  <p *ngIf="carregando" class="state-message">Carregando seus dados...</p>
+  <p *ngIf="erro" class="error-message">{{ erro }}</p>
+
+  <section class="profile-hero" *ngIf="!carregando && !erro && usuario">
+    <div class="avatar">
+      {{ usuario.name.firstname.charAt(0) }}{{ usuario.name.lastname.charAt(0) }}
+    </div>
+
+    <div class="profile-title">
+      <p>Minha conta</p>
+      <h1>{{ nomeCompleto() }}</h1>
+      <span>Dados cadastrados na Fake Store API para {{ usuario.username }}</span>
+    </div>
+
+    <button type="button" (click)="sair()">Sair da conta</button>
+  </section>
+
+  <section class="profile-grid" *ngIf="!carregando && !erro && usuario">
+    <article>
+      <h2>Identificacao</h2>
+      <dl>
+        <div>
+          <dt>ID</dt>
+          <dd>{{ usuario.id }}</dd>
+        </div>
+        <div>
+          <dt>Nome completo</dt>
+          <dd>{{ nomeCompleto() }}</dd>
+        </div>
+        <div>
+          <dt>Usuario</dt>
+          <dd>{{ usuario.username }}</dd>
+        </div>
+        <div>
+          <dt>Email</dt>
+          <dd>{{ usuario.email }}</dd>
+        </div>
+        <div>
+          <dt>Telefone</dt>
+          <dd>{{ usuario.phone }}</dd>
+        </div>
+        <div>
+          <dt>Senha fake</dt>
+          <dd>{{ usuario.password }}</dd>
+        </div>
+        <div>
+          <dt>Versao</dt>
+          <dd>{{ usuario.__v }}</dd>
+        </div>
+      </dl>
+    </article>
+
+    <article>
+      <h2>Endereco</h2>
+      <dl>
+        <div>
+          <dt>Cidade</dt>
+          <dd>{{ usuario.address.city }}</dd>
+        </div>
+        <div>
+          <dt>Rua</dt>
+          <dd>{{ usuario.address.street }}</dd>
+        </div>
+        <div>
+          <dt>Numero</dt>
+          <dd>{{ usuario.address.number }}</dd>
+        </div>
+        <div>
+          <dt>CEP</dt>
+          <dd>{{ usuario.address.zipcode }}</dd>
+        </div>
+        <div>
+          <dt>Latitude</dt>
+          <dd>{{ usuario.address.geolocation.lat }}</dd>
+        </div>
+        <div>
+          <dt>Longitude</dt>
+          <dd>{{ usuario.address.geolocation.long }}</dd>
+        </div>
+      </dl>
+    </article>
+
+    <article class="session-card">
+      <h2>Sessao</h2>
+      <p>Token recebido pela autenticacao:</p>
+      <code>{{ authService.getToken() }}</code>
+      <a routerLink="/">Voltar para produtos</a>
+    </article>
+  </section>
+</main>

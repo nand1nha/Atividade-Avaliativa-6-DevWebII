@@ -1,0 +1,85 @@
+<main class="home">
+  <section class="hero">
+    <div class="hero-text">
+      <p class="tag">Loja virtual com Fake Store API</p>
+      <h1>Produtos reais da API em uma vitrine simples e bonita.</h1>
+      <p>
+        Veja roupas, joias e eletronicos com foto, preco, categoria e avaliacao retornados
+        diretamente pelo service.
+      </p>
+    </div>
+
+    <div class="hero-panel">
+      <span>Total de produtos</span>
+      <strong>{{ produtos.length }}</strong>
+      <small>dados carregados da API</small>
+    </div>
+  </section>
+
+  <section class="filters" aria-label="Filtros da vitrine">
+    <label>
+      Buscar
+      <input
+        type="text"
+        name="termoBusca"
+        [(ngModel)]="termoBusca"
+        (ngModelChange)="filtrarProdutos()"
+        placeholder="Nome, categoria ou descricao">
+    </label>
+
+    <label>
+      Categoria
+      <select
+        name="categoria"
+        [(ngModel)]="categoriaEscolhida"
+        (ngModelChange)="filtrarProdutos()">
+        <option value="todas">Todas</option>
+        <option *ngFor="let categoria of categorias" [value]="categoria">
+          {{ categoria }}
+        </option>
+      </select>
+    </label>
+
+    <button type="button" (click)="limparFiltros()">Limpar</button>
+  </section>
+
+  <p *ngIf="carregando" class="state-message">Carregando produtos...</p>
+  <p *ngIf="erro" class="error-message">{{ erro }}</p>
+
+  <section *ngIf="!carregando && !erro" class="store-section">
+    <div class="section-title">
+      <div>
+        <p class="tag">Vitrine</p>
+        <h2>Produtos disponiveis</h2>
+      </div>
+      <span>{{ produtosFiltrados.length }} item(ns) encontrado(s)</span>
+    </div>
+
+    <p *ngIf="produtosFiltrados.length === 0" class="state-message">
+      Nenhum produto encontrado com esses filtros.
+    </p>
+
+    <div class="products-grid" *ngIf="produtosFiltrados.length > 0">
+      <article
+        class="product-card"
+        *ngFor="let produto of produtosFiltrados; trackBy: trackByProduto"
+        [routerLink]="['/produto', produto.id]">
+
+        <div class="image-box">
+          <img [src]="produto.image" [alt]="produto.title">
+        </div>
+
+        <div class="product-info">
+          <span>{{ produto.category }}</span>
+          <h3>{{ produto.title }}</h3>
+          <p>{{ produto.description }}</p>
+        </div>
+
+        <div class="product-footer">
+          <strong>{{ produto.price | currency:'BRL':'symbol':'1.2-2' }}</strong>
+          <small>{{ produto.rating.rate }} / 5</small>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>

@@ -1,0 +1,46 @@
+<main class="login-page">
+  <section class="login-card">
+    <div class="login-copy">
+      <p class="tag">Area do cliente</p>
+      <h1>Entrar na loja</h1>
+      <p>
+        O formulario envia usuario e senha para o endpoint de autenticacao da Fake Store API.
+        Depois do login, o perfil carrega os dados cadastrados do usuario.
+      </p>
+
+      <button type="button" class="outline-button" (click)="usarUsuarioTeste()">
+        Usar usuario de teste
+      </button>
+    </div>
+
+    <form class="login-form" (ngSubmit)="entrar()">
+      <label>
+        Usuario
+        <input
+          type="text"
+          name="username"
+          autocomplete="username"
+          [(ngModel)]="username"
+          placeholder="mor_2314">
+      </label>
+
+      <label>
+        Senha
+        <input
+          type="password"
+          name="password"
+          autocomplete="current-password"
+          [(ngModel)]="password"
+          placeholder="83r5^_">
+      </label>
+
+      <p *ngIf="erro" class="error-message">{{ erro }}</p>
+
+      <button type="submit" [disabled]="carregando">
+        {{ carregando ? 'Entrando...' : 'Entrar' }}
+      </button>
+
+      <a routerLink="/">Voltar para a vitrine</a>
+    </form>
+  </section>
+</main>

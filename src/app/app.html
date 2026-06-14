@@ -1,0 +1,35 @@
+<header class="topbar">
+  <a class="brand" routerLink="/" aria-label="Ir para a pagina inicial">
+    <span class="brand-mark">LV</span>
+    <span>
+      <strong>Loja Viva</strong>
+      <small>Fake Store API</small>
+    </span>
+  </a>
+
+  <nav class="menu" aria-label="Menu principal">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      Produtos
+    </a>
+
+    <a
+      *ngIf="authService.isLogado()"
+      routerLink="/perfil"
+      routerLinkActive="active">
+      Minha conta
+    </a>
+
+    <a
+      *ngIf="!authService.isLogado()"
+      routerLink="/login"
+      routerLinkActive="active">
+      Login
+    </a>
+
+    <button *ngIf="authService.isLogado()" type="button" (click)="sair()">
+      Sair
+    </button>
+  </nav>
+</header>
+
+<router-outlet></router-outlet>
